@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1 (Python 3.11.4 on win32)" generated="20230719 12:09:59.064" rpa="false" schemaversion="4">
+<suite id="s1" name="TC POST Request" source="C:\Users\Lenovo\PycharmProjects\testAPIAutomationPythonProject\TestCases\TC_POST_Request.robot">
+<test id="s1-t1" name="CustomerInformation" line="10">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>mysession</arg>
+<arg>${base_Url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230719 12:09:59.147" level="INFO">Creating Session using : alias=mysession, url=https://dummyjson.com/products, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230719 12:09:59.147" endtime="20230719 12:09:59.147"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${body}</var>
+<arg>title=Abdo</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230719 12:09:59.148" level="INFO">${body} = {'title': 'Abdo'}</msg>
+<status status="PASS" starttime="20230719 12:09:59.147" endtime="20230719 12:09:59.148"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${header}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230719 12:09:59.148" level="INFO">${header} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20230719 12:09:59.148" endtime="20230719 12:09:59.148"/>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<var>${response}</var>
+<arg>mysession</arg>
+<arg>/add</arg>
+<arg>data=${body}</arg>
+<arg>headers=${header}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<msg timestamp="20230719 12:09:59.148" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg timestamp="20230719 12:10:00.041" level="INFO">POST Request : url=https://dummyjson.com/products/add 
+ path_url=/products/add 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '17'} 
+ body={"title": "Abdo"} 
+ </msg>
+<msg timestamp="20230719 12:10:00.041" level="INFO">POST Response : url=https://dummyjson.com/products/add 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'x-ratelimit-limit': '120', 'x-ratelimit-remaining': '119', 'date': 'Wed, 19 Jul 2023 09:10:00 GMT', 'x-ratelimit-reset': '1689757845', 'content-type': 'application/json; charset=utf-8', 'content-length': '25', 'etag': 'W/"19-qagGHRiozHgtgG+vOHKmdb67ifY"', 'vary': 'Accept-Encoding', 'server': 'railway'} 
+ body={"id":101,"title":"Abdo"} 
+ </msg>
+<msg timestamp="20230719 12:10:00.041" level="INFO">D:\Python Projects\Lib\site-packages\urllib3\connectionpool.py:1095: InsecureRequestWarning: Unverified HTTPS request is being made to host 'dummyjson.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230719 12:10:00.042" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230719 12:09:59.148" endtime="20230719 12:10:00.042"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20230719 12:10:00.043" endtime="20230719 12:10:00.043"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${response.content}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20230719 12:10:00.044" endtime="20230719 12:10:00.044"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${res_status}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20230719 12:10:00.045" level="INFO">${res_status} = 200</msg>
+<status status="PASS" starttime="20230719 12:10:00.045" endtime="20230719 12:10:00.045"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${res_status}</arg>
+<arg>200</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230719 12:10:00.045" endtime="20230719 12:10:00.046"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${res_content}</var>
+<arg>${response.content}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20230719 12:10:00.046" level="INFO">${res_content} = {"id":101,"title":"Abdo"}</msg>
+<status status="PASS" starttime="20230719 12:10:00.046" endtime="20230719 12:10:00.046"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${res_content}</arg>
+<arg>Abdo</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20230719 12:10:00.046" endtime="20230719 12:10:00.047"/>
+</kw>
+<status status="PASS" starttime="20230719 12:09:59.146" endtime="20230719 12:10:00.047"/>
+</test>
+<status status="PASS" starttime="20230719 12:09:59.067" endtime="20230719 12:10:00.047"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="TC POST Request">TC POST Request</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20230719 12:09:59.148" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+</errors>
+</robot>
